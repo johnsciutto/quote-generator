@@ -3,9 +3,24 @@ const quoteText = document.getElementById('quote');
 const authorText = document.getElementById('author');
 const twitterBtn = document.getElementById('twitter');
 const newQuoteBtn = document.getElementById('new-quote');
+const loader = document.getElementById('loader');
+
+function showLoadingSpinner() {
+  loader.hidden = false;
+  quoteContainer.hidden = true;
+}
+
+function removeLoadingSpinner() {
+  if (!loader.hidden) {
+    loader.hidden = true;
+    quoteContainer.hidden = false;
+  }
+}
 
 // Get Quote from API
 async function getQuote() {
+  showLoadingSpinner();
+  let countErrors = 0;
   const proxyUrl = 'https://obscure-brushlands-90842.herokuapp.com/'
   const apiUrl =
     'http://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=json';
@@ -25,9 +40,13 @@ async function getQuote() {
       quoteText.classList.remove('long-quote');
     }
     quoteText.innerText = data.quoteText;
+    removeLoadingSpinner();
   } catch (error) {
-    console.log(error);
-    getQuote();
+    if (countErrors < 10) {
+      getQuote();
+      ++countErrors;
+    }
+    console.error(`Error detected: ${error}`);
   }
 }
 
