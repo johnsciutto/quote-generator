@@ -7,8 +7,7 @@ const loader = document.getElementById('loader');
 
 function showLoadingSpinner() {
   loader.hidden = false;
-  quoteContainer.hidden = true;
-}
+  quoteContainer.hidden = true;}
 
 function removeLoadingSpinner() {
   if (!loader.hidden) {
@@ -21,7 +20,7 @@ function removeLoadingSpinner() {
 async function getQuote() {
   showLoadingSpinner();
   let countErrors = 0;
-  const proxyUrl = 'https://obscure-brushlands-90842.herokuapp.com/'
+    const proxyUrl = 'https://obscure-brushlands-90842.herokuapp.com/';
   const apiUrl =
     'http://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=json';
   try {
@@ -55,7 +54,7 @@ function tweetQuote() {
   const author = authorText.innerText;
   const twitterUrl = `https://twitter.com/intent/tweet?text=${quote} - ${author}`;
   window.open(twitterUrl, '_blank');
-}
+};
 
 // Event Listeners
 newQuoteBtn.addEventListener('click', getQuote);
